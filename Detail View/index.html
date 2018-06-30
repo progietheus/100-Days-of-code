@@ -1,31 +1,164 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
 
   <meta charset="UTF-8">
-  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico">
-  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111">
-  <title>CodePen - Detail View</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>CodePen - Detail Viewer</title>
   
   
   
-  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-<link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+<style>
+#loader div {
+  background: red;
+
+  background-color: blue;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+}
+
+#loader div:nth-child(1) {
+  animation-name: example;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+#loader div:nth-child(2) {
+  animation-name: example;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+#loader div:nth-child(3) {
+  animation-name: example;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+@-webkit-keyframes scale50 {
+  50% {
+    transform: scale(1.4);
+  }
+}
+@-webkit-keyframes example {
+  0% {
+    background-color: #003333;
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background-color: #006666;
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background-color: #008b8b;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background-color: #00b3b3;
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background-color: #00e6e6;
+    left: 0px;
+    top: 0px;
+  }
+}
+
+/* Standard syntax */
+@keyframes example {
+  0% {
+    background-color: #003333;
+    left: 0px;
+    top: 0px;
+    
+    transform: scale(1.4);
+  }
+  25% {
+    background-color: #006666;
+    left: 200px;
+    top: 0px;
+    
+    transform: scale(1.0);
+  }
+  50% {
+    background-color: #008b8b;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background-color: #00b3b3;
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background-color: #00e6e6;
+    left: 0px;
+    top: 0px;
+  }
+}
+
+</style>
 
       <style>
-      @import url('https://fonts.googleapis.com/css?family=Quicksand');
+      @import url("https://fonts.googleapis.com/css?family=VT323");
 
+/* =====================tag=================== */
 body {
   background-color: teal;
-  font-family: Quicksand;
+  font-family: VT323;
   margin-top: 130px;
   color: #87ffff;
-  font-size: 14px;
+  font-size: 18px;
   text-align: center;
+}
+
+p {
+  margin: 0 0 0px;
+}
+
+/* =====================id=================== */
+#overlay {
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: black;
+  height: 800px;
+  width: 100%;
+  opacity: 0.8;
+}
+#loader {
+  position: relative;
+  top: 25px;
+}
+#title {
+  color: black;
+  /*   border: 1px solid black;  */
+  text-align: left;
+  padding-left: 20px;
+}
+/* =====================class=================== */
+.progressbar {
+  background-color: teal;
+  height: 15px;
+  width: 0%;
+  transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
+}
+
+.progress60 {
+  width: 60%;
 }
 
 .header {
   width: 100%;
-  height: 120px;
+  height: 130px;
   background-color: #87ffff;
   position: absolute;
   top: 0;
@@ -43,10 +176,11 @@ body {
 .item {
   border-bottom: 3px solid #00adad;
   border-left: 3px solid #00adad;
-  width: 60%;
+  width: 80%;
   margin: 15px auto;
   padding: 6px;
-  transition: all 0.2s ease-in;
+  transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
   cursor: pointer;
   display: inline-block;
 }
@@ -61,7 +195,11 @@ body {
   top: 13px;
   background-color: #87ffff;
 }
-
+.user {
+  background-image: url("https://i.gifer.com/35vq.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .item:hover {
   background-color: #00adad;
 }
@@ -73,15 +211,18 @@ body {
 }
 .expand {
   position: absolute;
-  left:0;
+  left: 0;
   right: 0;
-  transform: translate(0px, -100%);
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  /*   transform: translate(0px, -100%); */
   width: 100%;
   color: #001919;
   background-color: #87ffff;
 }
-p {
-  margin: 0 0 0px;
+.expand:hover {
+  background-color: #87ffff;
 }
 .fa-times {
   position: relative;
@@ -93,16 +234,21 @@ p {
 
 .bubble {
   transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
   border: 2px solid #00adad;
   border-radius: 10px;
   padding: 4px;
-  margin-bottom: 2px;
+  margin: 2px 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .bubble span {
   transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
   background-color: #00adad;
   margin: -5px;
-  margin-right: 4px;
+  margin-right: 10px;
   padding: 5px;
   display: inline-block;
   border-radius: 10px;
@@ -110,19 +256,20 @@ p {
 }
 .properties {
   height: 110px;
-  margin-left: 160px;
+  margin-left: 0px;
   padding: 4px;
   text-align: left;
 }
-#overlay {
-  position: relative;
-  top: 0;
-  left: 0;
-  background-color: black;
-  height: 800px;
-  width:100%;
-  opacity: .8;
+
+@media only screen and (max-width: 990px) {
+  .icon {
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+    float: none !important;
+  }
 }
+
     </style>
 
   
@@ -132,23 +279,121 @@ p {
 
 </head>
 
-<body translate="no">
+<body translate="no" >
 
-  <div class="parent animated fadeIn"><div class="header animated fadeIn"><i class="fa fa-times pull-right"></i></div> <div class="items"><div class="item animated fadeIn"><div class="icon pull-left"></div> <div class="properties"><div class="row"><div class="col-xs-12 col-md-4"><p class="bubble"><span>Ship To</span>Sarah Connor</p> <p class="bubble"><span>Version</span>T-800</p> <p class="bubble"><span>Serial</span>Model 101</p></div> <div class="col-xs-12 col-md-4"><p class="bubble"><span>Ship By</span>10/26/1984</p> <p class="bubble"><span>City</span>Los Angeles, CA</p> <p class="bubble"><span>Created By</span>Cyberdyne Systems</p></div> <div class="col-xs-12 col-md-4"><p class="bubble"><span>Ship By</span>10/26/1984</p> <p class="bubble"><span>City</span>Los Angeles, CA</p> <p class="bubble"><span>Created By</span>Cyberdyne Systems</p></div></div></div></div> <div class="item animated fadeIn"><div class="icon pull-left"></div> <div class="properties"><div class="row"><div class="col-xs-12 col-md-4"><p class="bubble"><span>Ship To</span>Sarah Connor</p> <p class="bubble"><span>Version</span>T-800</p> <p class="bubble"><span>Serial</span>Model 101</p></div> <div class="col-xs-12 col-md-4"><p class="bubble"><span>Ship By</span>10/26/1984</p> <p class="bubble"><span>City</span>Los Angeles, CA</p> <p class="bubble"><span>Created By</span>Cyberdyne Systems</p></div> <div class="col-xs-12 col-md-4"><p class="bubble"><span>Ship By</span>10/26/1984</p> <p class="bubble"><span>City</span>Los Angeles, CA</p> <p class="bubble"><span>Created By</span>Cyberdyne Systems</p></div></div></div></div></div></div>
+  <div class="parent animated fadeIn">
+  <div class="header animated fadeIn">
+    <div id="title">
+
+      <div class="col-xs-12 col-md-4">
+        <div class="row">
+          <h3>Invoice # 187</h3>
+        </div>
+        <div class="row">
+          <p>Request Type: <span style="background-color: pink; padding: 2px; color:red">Termination</span></p>
+        </div>
+        <div class="row">
+          <p>Created On: 10/26/1984</p>
+        </div>
+      </div>
+      <div class="hidden-xs hidden-sm col-md-4">
+        <div class="row">
+          <h3>Progress (60% Fulfilled)</h3>
+        </div>
+        <div class="row">
+          <div class="progressbar" v-bind:class={progress60:loaded}></div>
+        </div>
+
+        <div class="row">
+          <div id="loader" v-if="!loaded" style="top:-20px">
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="items">
+    <div class="item animated fadeIn" v-on:click="clickItem">
+      <div class="col-xs-12 col-md-2">
+        <div class="row">
+          <div class="icon pull-left " v-bind:class="{user:loaded}">
+            <div id="loader" v-if="!loaded">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-10">
+        <div class="row">
+          <div class="properties">
+
+            <div class="col-xs-12 col-md-6 col-lg-4">
+              <div class="row">
+                <p class="bubble"><span>Ship To</span>Sarah Connor</p>
+              </div>
+              <div class="row">
+                <p class="bubble"><span>Version</span>T-800</p>
+              </div>
+              <div class="row">
+                <p class="bubble"><span>Serial</span>Model 101</p>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-4">
+              <div class="row">
+                <p class="bubble"><span>Address</span>14239 Gilmore Street</p>
+              </div>
+              <div class="row">
+                <p class="bubble"><span>City</span>Van Nuys, CA</p>
+              </div>
+              <div class="row">
+                <p class="bubble"><span style>Created By</span>Cyberdyne Systems</p>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+            </div>
+            <!--         <div class="col-xs-12 col-md-4">
+          Test
+        </div> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 
   
 
-    <script>
+    <script >
       var _vue = new Vue({
   el: ".parent",
   data: {
-    open: false
+    open: false,
+    loaded: false
   },
-  mounted: function() {},
+  mounted: function() {
+    this.$nextTick(function() {
+      setTimeout(function() {
+        _vue.loaded = true;
+      }, 2000);
+    });
+  },
   methods: {
     clickItem: function(e) {
       $(e.currentTarget).toggleClass("expand");
@@ -162,7 +407,7 @@ p {
   
   
 
+</body>
 
-
-
- </body></html>
+</html>
+ 
